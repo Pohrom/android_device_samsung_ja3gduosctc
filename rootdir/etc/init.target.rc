@@ -19,13 +19,19 @@ service modemloader /system/bin/modemloader
     class core
     oneshot
 
-service cpboot-daemon /system/bin/cbd -d -txmm626x -bh -mh -p 13
+service cpboot-daemon /sbin/cbd -d -txmm626 -bh -mh -p 13
+    class main
+    user root
+    group radio cache inet misc audio sdcard_rw log sdcard_r shell
+
+service cpboot-daemon2 /sbin/cbd -d -t esc6270 -b u -m p -p 22
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
 
 on property:persist.sys.cpboot=disable
     stop cpboot-daemon
+    stop cpboot-daemon2
 
 # GPS
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml

@@ -113,3 +113,13 @@
 /dev/mobicore             0600   drmrpc     drmrpc
 /dev/mobicore-user        0660   drm        drmrpc
 /dev/s5p-smem             0660   system     drmrpc
+
+/dev/mdm                  0660   system     radio
+/dev/hsic*                0660   system     radio
+/dev/diag                 0660   system     radio
+
+/dev/ks_hsic_bridge       0660   system     system
+/dev/efs_hsic_bridge      0660   system     system
+/dev/block/mmcblk0p4      0660   system     radio
+/dev/block/mmcblk0p5      0660   system     radio
+/dev/block/mmcblk0p6      0660   system     radio

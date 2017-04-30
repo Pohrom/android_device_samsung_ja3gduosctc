@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/samsung/ja3gxx
+LOCAL_PATH := device/samsung/ja3gchnduos
 
 # overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -31,16 +31,14 @@ PRODUCT_PACKAGES += \
     ueventd.universal5410.rc
 
 # Audio
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths_0.xml
-
 PRODUCT_PACKAGES += \
-    AudioWorkaround \
-    audio.a2dp.default \
     audio.primary.universal5410 \
-    audio.usb.default \
-    audio.r_submix.default \
-    tinymix
+    libtinyalsa \
+    libtinyxml
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/configs/audio/ysound.xml:system/etc/ysound.xml
 
 # GPS
 PRODUCT_COPY_FILES += \
@@ -58,4 +56,4 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full
 
 # call the proprietary setup
-$(call inherit-product, vendor/samsung/ja3gxx/ja3gxx-vendor.mk)
+$(call inherit-product, vendor/samsung/ja3gchnduos/ja3gchnduos-vendor.mk)

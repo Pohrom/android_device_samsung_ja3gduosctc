@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=ja3gxx
+DEVICE=ja3gchnduos
 VENDOR=samsung
 
 INITIAL_COPYRIGHT_YEAR=2017
