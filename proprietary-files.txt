@@ -187,3 +187,4 @@ lib/libwrappergps.so
 bin/cbd
 lib/libsecnativefeature.so
 lib/libsec-ril.so
+lib/libsec-ril-cdma.so
