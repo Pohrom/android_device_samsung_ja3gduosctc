@@ -185,6 +185,10 @@ lib/libwrappergps.so
 
 # Radio
 bin/cbd
+bin/rild
 lib/libsecnativefeature.so
+lib/libreference-ril.so
+lib/libril.so
 lib/libsec-ril.so
 lib/libsec-ril-cdma.so
+lib/libsecril-client.so
