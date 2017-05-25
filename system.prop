@@ -12,3 +12,6 @@ ro.telephony.default_network=0
 # Multisim (uncomment to enable)
 #persist.radio.multisim.config=dsda
 #ro.multisim.simslotcount=2
+
+# OTA
+ro.ota.manifest=https://raw.githubusercontent.com/exynos5410/android_device_samsung_ja3gchnduos/cm-14.1/ota.xml
