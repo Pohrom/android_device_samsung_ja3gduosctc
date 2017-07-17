@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/samsung/ja3gchnduos
+LOCAL_PATH := device/samsung/ja3gduosctc
 
 # overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -42,9 +42,7 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/gps.cer:system/etc/gps.cer \
-    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/configs/gps.xml:system/etc/gps.xml
+    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf
 
 PRODUCT_PACKAGES += \
     libdmitry
@@ -56,4 +54,4 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full
 
 # call the proprietary setup
-$(call inherit-product, vendor/samsung/ja3gchnduos/ja3gchnduos-vendor.mk)
+$(call inherit-product, vendor/samsung/ja3gduosctc/ja3gduosctc-vendor.mk)
