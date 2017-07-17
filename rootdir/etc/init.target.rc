@@ -32,34 +32,40 @@ service modemloader /system/bin/modemloader
     class core
     oneshot
 
-service cpboot-daemon /system/bin/cbd -d -txmm626 -bh -mh -p 13
-    class main
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r shell
+# service cpboot-daemon /system/bin/cbd -d -txmm626 -bh -mh -p 13
+#    class main
+#    user root
+#    group radio cache inet misc audio sdcard_rw log sdcard_r shell
 
-service cpboot-daemon2 /system/bin/cbd -d -t esc6270 -b u -m p -p 22
-    class main
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r shell
+#service cpboot-daemon2 /system/bin/cbd -d -t esc6270 -b u -m p -p 22
+#   class main
+#  user root
+#  group radio cache inet misc audio sdcard_rw log sdcard_r shelll
 
-service_redefine ril-daemon /system/bin/rild -l /system/lib/libsec-ril-cdma.so
+service ril-daemon /system/bin/rild -l /system/lib/libsec-ril-cdma.so -- -d /dev/ttyS0 -D 7203 -M no
     class main
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw diag log readproc wakelock
-	disabled
-    onrestart restart cpboot-daemon
+    group radio cache inet misc audio sdcard_r sdcard_rw log
 
-service ril-daemon2 /system/bin/rild -c 2
+
+service ril-daemon2 /system/bin/rild -c 2 -- -d /dev/ttyS1 -D 7204
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw qcom_oncrpc diag log readproc wakelock graphics
+    group radio cache inet misc audio sdcard_r sdcard_rw log qcom_oncrpc diag graphics
 
 # GPS
-service gpsd /system/bin/gpsd -c /system/etc/gps.xml
+# service gpsd /system/bin/gpsd -c /system/etc/gps.xml
+#    class main
+#    user gps
+#    group system inet net_raw wakelock
+
+# GPS for Qualcomm-SamsungIPC
+service secgpsd /system/bin/secgpsd
     class main
+    socket secgps seqpacket 0660 gps system
     user gps
-    group system inet net_raw wakelock
+    group system inet
