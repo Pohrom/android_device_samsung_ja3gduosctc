@@ -17,7 +17,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),ja3gchnduos)
+ifeq ($(TARGET_DEVICE),ja3gduosctc)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
