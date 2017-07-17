@@ -17,14 +17,14 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from ja3gchnduos device
-$(call inherit-product, device/samsung/ja3gchnduos/device.mk)
+$(call inherit-product, device/samsung/ja3gduosctc/device.mk)
 
 # Inherit from common board repo
 $(call inherit-product, device/samsung/exynos5410-common/exynos5410.mk)
 
 # Discard inherited values and use our own instead.
-PRODUCT_NAME := full_ja3gchnduos
-PRODUCT_DEVICE := ja3gchnduos
+PRODUCT_NAME := full_ja3gduosctc
+PRODUCT_DEVICE := ja3gduosctc
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := GT-I9500
+PRODUCT_MODEL := SCH-I959
