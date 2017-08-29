@@ -115,17 +115,27 @@
 /dev/s5p-smem             0660   system     drmrpc
 
 # For CP
+/dev/umts*                0660   system     radio
 /dev/cdma*                0660   system     radio
 /dev/gsm*                 0660   system     radio
 /dev/ttyUSB0              0666   system     radio
 /dev/ttyUSB1              0666   system     system
 /dev/ttyUSB2              0666   system     system
-/dev/ttySAC3              0660   system     radio
 /dev/ttyCWPPP0            0660   system     radio
 /dev/ttyCWXAN0            0660   system     radio
 /dev/ppp                  0660   system     vpn
 
+/dev/block/mmcblk0p13     0660   system     radio
 /dev/block/mmcblk0p22     0660   system     radio
 /dev/block/mmcblk0p23     0660   system     radio
 /dev/mbin0                0660   system     radio
 /dev/mbin1                0660   system     radio
+
+/dev/smd0                 0640   radio      radio
+/dev/qmi                  0640   radio      radio
+/dev/qmi0                 0640   radio      radio
+/dev/qmi1                 0640   radio      radio
+/dev/qmi2                 0640   radio      radio
+
+# CDMA radio interface MUX
+/dev/ts0710mux*           0640   radio      radio

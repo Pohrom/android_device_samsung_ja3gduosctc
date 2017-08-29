@@ -51,7 +51,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     modemloader \
     libxml2 \
-    libprotobuf-cpp-full
+    libprotobuf-cpp-full \
+    libsecril-shim \
+    libsecril-cdma-shim
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/ja3gduosctc/ja3gduosctc-vendor.mk)

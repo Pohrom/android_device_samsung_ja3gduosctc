@@ -1,6 +1,12 @@
+# CSC
+csc/others.xml
+
 # Audio
+lib/hw/audio.a2dp.default.so
+lib/hw/audio.usb.default.so
 lib/hw/audio_policy.universal5410.so
-lib/hw/audio.primary.universal5410.so:lib/hw/audio.primary.vendor.universal5410.so
+# renamed beacuse of audio wrapper
+lib/hw/audio.primary.vendor.universal5410.so:lib/hw/audio.primary.universal5410.so
 lib/libaudio-ril.so
 lib/libymc_codecctrl.so
 lib/libymc_config.so
@@ -169,24 +175,30 @@ etc/ymc/param/aec_hf50_vt_nb_type0_sp_2mic_2.dat
 etc/ymc/param/aec_hf50_vt_nb_type1_rc_2mic_2.dat
 etc/ymc/param/aec_hf50_vt_nb_type1_sp_2mic_2.dat
 
-
 vendor/firmware/es325_fw.bin
 vendor/firmware/srp_cga.bin
 vendor/firmware/srp_data.bin
 vendor/firmware/srp_vliw.bin
 
 # Bluetooth
-vendor/firmware/bcm4335_V0343.0347.hcd
+# change B0 to A0 against the hcd patch finding bug of hardware.c
+vendor/firmware/bcm4335A0_V0343.0347.hcd:vendor/firmware/bcm4335B0_V0343.0347.hcd
 
 # GPS
-bin/gpsd
-lib/hw/gps.default.so:lib/hw/gps.universal5410.so
-lib/libwrappergps.so
+bin/secgpsd
+lib/hw/gps.exynos5.so
+lib/hw/gps.goldfish.so
 
 # Radio
-bin/cbd
+CSCVersion.txt
 bin/rild
+bin/at_distributor
+lib/libatparser.so
 lib/libsecnativefeature.so
+lib/libseckeyprov.so
+lib/libfactoryutil.so
+lib/libgdmcprov.so
+lib/libomission_avoidance.so
 lib/libreference-ril.so
 lib/libril.so
 lib/libsec-ril.so

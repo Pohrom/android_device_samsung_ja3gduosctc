@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=ja3gchnduos
+DEVICE=ja3gduosctc
 VENDOR=samsung
 
 # Load extract_utils and do some sanity checks
