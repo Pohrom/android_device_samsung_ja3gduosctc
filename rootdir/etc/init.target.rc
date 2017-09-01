@@ -17,7 +17,30 @@ on post-fs-data
     chmod 0644 /efs/cpk/h2k.dat
     chown system system /efs/drm/h2k
 
-    # SEAndroid Restore context for efs files
+    # Permission
+    chown radio system /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_lock
+
+    ## NFC_BROADCOM
+    chmod 0600 /dev/bcm2079x
+    chown nfc nfc /dev/bcm2079x
+    mkdir /data/bcmnfc 0700 nfc nfc
+    mkdir /data/bcmnfc/param 0700 nfc nfc
+
+    ## mobicore
+    mkdir /data/app/mcRegistry 0775 system system
+    chmod 0766 /dev/mobicore
+    chmod 0666 /dev/mobicore-user
+    chmod 0660 /dev/s5p-smem
+    chown system system /dev/mobicore
+    chown radio system /dev/mobicore-user
+    chown system system /dev/s5p-smem
+
+    ## Telephony
+    chmod 0644 /proc/cmdline
+    chown root radio /proc/cmdline
+
+    # (additional) SEAndroid Restore context for efs files
     restorecon -R /efs_gsm
 
     # Remove symlinks to avoid issues with migrate after nandroid restores
@@ -62,5 +85,4 @@ service at_distributor /system/bin/at_distributor
     class late_start
     user root
     group radio misc log
-
 

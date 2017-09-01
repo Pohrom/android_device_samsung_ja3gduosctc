@@ -36,9 +36,15 @@ PRODUCT_PACKAGES += \
     libtinyalsa \
     libtinyxml
 
+# Audio
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
     $(LOCAL_PATH)/configs/audio/ysound.xml:system/etc/ysound.xml
+
+# Bluetooth
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/bluetooth/bt_did.conf:system/etc/bluetooth/bt_did.conf
 
 # GPS
 PRODUCT_COPY_FILES += \
