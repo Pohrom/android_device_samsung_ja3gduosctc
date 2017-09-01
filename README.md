@@ -8,6 +8,10 @@ CDMA/GSM voice,sms and data is working now.
 
 * can't switch mobile data baseband correctly without restart networks.
 
+## How to fetch source
+
+[Spxg/manifest](https://github.com/Spxg/manifest)
+
 ## How to build
 
 1. `extract-files.sh` to extract vendor files. Support pull from adb automatically or using path argument to extract.
