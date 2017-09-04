@@ -53,10 +53,6 @@ BOARD_GLOBAL_CFLAGS += -DSEC_PRODUCT_FEATURE_RIL_CALL_DUALMODE_CDMAGSM
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5410
 
-# Filesystems
-## Fix for recovery too large error when building
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
-
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/samsung/ja3gduosctc/sepolicy
@@ -66,3 +62,7 @@ BOARD_SEPOLICY_DIRS += \
 
 # inherit common board flags
 include device/samsung/exynos5410-common/BoardConfigCommon.mk
+
+# Filesystems
+## (Workaround)Fix for recovery.img too large error when building
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
