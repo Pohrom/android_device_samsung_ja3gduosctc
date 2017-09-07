@@ -158,6 +158,7 @@ public class SamsungLegacyRIL extends RIL implements CommandsInterface {
         isGSM = (phoneType != RILConstants.CDMA_PHONE);
     }
 
+    @Override
     protected Object
     responseCallList(Parcel p) {
         int num;
@@ -177,27 +178,25 @@ public class SamsungLegacyRIL extends RIL implements CommandsInterface {
             dc = new DriverCall();
 
             dc.state = DriverCall.stateFromCLCC(p.readInt());
-            dc.index = p.readInt() & 0xff;
+            dc.index = p.readInt();
             dc.TOA = p.readInt();
             dc.isMpty = (0 != p.readInt());
             dc.isMT = (0 != p.readInt());
             dc.als = p.readInt();
             voiceSettings = p.readInt();
-            if (isGSM){
-                p.readInt();
-            }
             dc.isVoice = (0 == voiceSettings) ? false : true;
+
+            int type = p.readInt();
+            int domain = p.readInt();
+            String extras = p.readString();
+
             dc.isVoicePrivacy = (0 != p.readInt());
-            if (isGSM) {
-                p.readInt();
-                p.readInt();
-                p.readString();
-            }
             dc.number = p.readString();
-            int np = p.readInt();
-            dc.numberPresentation = DriverCall.presentationFromCLIP(np);
+            dc.numberPresentation = DriverCall.presentationFromCLIP(p.readInt());
             dc.name = p.readString();
-            dc.namePresentation = p.readInt();
+            Rlog.d(RILJ_LOG_TAG, "responseCallList dc.name = " + dc.name);
+
+            dc.namePresentation = DriverCall.presentationFromCLIP(p.readInt());
             int uusInfoPresent = p.readInt();
             if (uusInfoPresent == 1) {
                 dc.uusInfo = new UUSInfo();
