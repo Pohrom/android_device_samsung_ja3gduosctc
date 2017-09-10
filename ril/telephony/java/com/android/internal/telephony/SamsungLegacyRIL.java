@@ -21,6 +21,7 @@ import static com.android.internal.telephony.RILConstants.*;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.AsyncResult;
+import android.os.Handler;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.SystemClock;
@@ -33,6 +34,7 @@ import com.android.internal.telephony.cdma.CdmaInformationRecords;
 import com.android.internal.telephony.cdma.SignalToneUtil;
 import com.android.internal.telephony.dataconnection.DataCallResponse;
 import com.android.internal.telephony.dataconnection.DcFailCause;
+import com.android.internal.telephony.metrics.TelephonyMetrics;
 import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
 import com.android.internal.telephony.uicc.IccUtils;
@@ -47,18 +49,38 @@ import java.util.Collections;
  */
 public class SamsungLegacyRIL extends RIL implements CommandsInterface {
 
-    private AudioManager mAudioManager;
+    protected static final int EVENT_RIL_CONNECTED = 1;
     private boolean isGSM = false;
+
+    private AudioManager mAudioManager;
+    private ConnectionStateListener mConnectionStateListener;
+    private TelephonyMetrics mMetrics = TelephonyMetrics.getInstance();
+
+    private class ConnectionStateListener extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case EVENT_RIL_CONNECTED:
+                    riljLogv("RIL connected");
+                    mAudioManager.setParameters("ril_state_connected=1");
+                    break;
+                default:
+                    riljLogv("Unknown connection event");
+                    break;
+            }
+        }
+    }
 
     public SamsungLegacyRIL(Context context, int networkModes, int cdmaSubscription) {
         this(context, networkModes, cdmaSubscription, null);
-        mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
     }
 
     public SamsungLegacyRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        mConnectionStateListener = new ConnectionStateListener();
+        registerForRilConnected(mConnectionStateListener, EVENT_RIL_CONNECTED, null); 
     }
 
     @Override
@@ -129,6 +151,26 @@ public class SamsungLegacyRIL extends RIL implements CommandsInterface {
             cardStatus.mApplications[cardStatus.mImsSubscriptionAppIndex] = appStatus3;
         }
         return cardStatus;
+    }
+
+    public void
+    acceptCall(int type, Message result) {
+        RILRequest rr
+                = RILRequest.obtain(RIL_REQUEST_ANSWER, result);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest) + " " + type);
+
+        mMetrics.writeRilAnswer(mInstanceId, rr.mSerial);
+
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeInt(type);
+        send(rr);
+    }
+
+    @Override
+    public void
+    acceptCall(Message result) {
+        acceptCall(0, result);
     }
 
     @Override
